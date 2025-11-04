@@ -47,16 +47,16 @@
                 </div>
             </div>
             <div class="form__button">
-                <button type="submit">
+                <button type="submit" class="form__button--submit">
                     {{ $isAdmin ? '管理者ログインする' : 'ログインする' }}
                 </button>
-            </div>
-            <div class="form__button--register">
-                @unless ($isAdmin)
-                    <a href="{{ route('register') }}">
-                        新規登録はこちら
-                    </a>
-                @endunless
+                <div class="form__button--register">
+                    @unless ($isAdmin)
+                        <a href="{{ route('register') }}">
+                            新規登録はこちら
+                        </a>
+                    @endunless
+                </div>
             </div>
         </form>
     </div>
