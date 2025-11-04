@@ -13,11 +13,11 @@
 <body>
     <header class="header">
         <div class="header__inner">
-            <h1 class="header__logo">
+            <div class="header__logo">
                 <a href="/">
                     <img src="{{ asset('images/logo.svg') }}" alt="COACHTECHロゴ">
                 </a>
-            </h1>
+            </div>
         </div>
     </header>
 
