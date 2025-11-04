@@ -16,4 +16,7 @@ use App\Http\Controllers\AdminController;
 */
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+
 Route::get('/admin/login', [AdminController::class, 'adminlogin'])->name('admin.login');
+Route::post('/admin/login', [AdminController::class, 'login']);
