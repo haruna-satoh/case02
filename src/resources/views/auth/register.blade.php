@@ -65,6 +65,11 @@
                     </div>
                 </div>
             </div>
+            <div class="form__button">
+                <button class="form__group--submit" type="submit">
+                    登録する
+                </button>
+            </div>
         </form>
     </div>
 @endsection
