@@ -51,7 +51,19 @@
                         @enderror
                     </div>
                 </div>
-                
+                <div class="form__group--title">
+                    <span>パスワード確認</span>
+                </div>
+                <div class="form__group--content">
+                    <div class="form__group--input">
+                        <input type="password" name="password_confirmation">
+                    </div>
+                    <div class="form__error">
+                        @error('password')
+                            {{ $message }}
+                        @enderror
+                    </div>
+                </div>
             </div>
         </form>
     </div>
