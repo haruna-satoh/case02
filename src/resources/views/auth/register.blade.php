@@ -38,6 +38,19 @@
                         @enderror
                     </div>
                 </div>
+                <div class="form__group--title">
+                    <span>パスワード</span>
+                </div>
+                <div class="form__group--content">
+                    <div class="form__group--input">
+                        <input type="password" name="password">
+                    </div>
+                    <div class="form__error">
+                        @error('password')
+                            {{ $message }}
+                        @enderror
+                    </div>
+                </div>
                 
             </div>
         </form>
