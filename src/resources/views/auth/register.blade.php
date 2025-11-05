@@ -66,7 +66,7 @@
                 </div>
             </div>
             <div class="form__button">
-                <button class="form__group--submit" type="submit">
+                <button class="form__button--submit" type="submit">
                     登録する
                 </button>
                 <div class="form__button--login">
