@@ -22,4 +22,4 @@ Route::get('/admin/login', [AdminController::class, 'adminlogin'])->name('admin.
 Route::post('/admin/login', [AdminController::class, 'login']);
 
 Route::get('/register', [AuthController::class, 'register'])->name('register');
-Route::post('/register', [AuthController::class, 'register']);
+Route::post('/register', [AuthController::class, 'store']);
