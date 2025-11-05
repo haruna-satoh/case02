@@ -69,6 +69,11 @@
                 <button class="form__group--submit" type="submit">
                     登録する
                 </button>
+                <div class="form__button--login">
+                    <a href="/login" class="form__login">
+                        ログインはこちら
+                    </a>
+                </div>
             </div>
         </form>
     </div>
