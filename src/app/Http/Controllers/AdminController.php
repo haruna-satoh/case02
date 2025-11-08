@@ -9,7 +9,7 @@ use App\Models\Admin;
 
 class AdminController extends Controller
 {
-    public function adminlogin() {
+    public function adminLogin() {
         return view('auth.login', ['isAdmin' => true]);
     }
 
