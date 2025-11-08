@@ -15,10 +15,10 @@ use App\Http\Controllers\AdminController;
 |
 */
 
-Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::get('/admin/login', [AdminController::class, 'adminlogin'])->name('admin.login');
+Route::get('/admin/login', [AdminController::class, 'adminLogin'])->name('admin.login');
 Route::post('/admin/login', [AdminController::class, 'login']);
 
 Route::get('/register', [AuthController::class, 'register'])->name('register');
