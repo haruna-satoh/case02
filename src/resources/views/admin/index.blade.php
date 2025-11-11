@@ -14,6 +14,12 @@
                 <button class="attendance__button">
                     前日
                 </button>
+                <div class="attendance__date-input">
+                    <input type="date" name="date" value="2023-06-01">
+                </div>
+                <button class="attendance__button">
+                    翌日
+                </button>
             </div>
         </div>
     </div>
