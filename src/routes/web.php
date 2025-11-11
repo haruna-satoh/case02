@@ -16,7 +16,7 @@ use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 */
 
 Route::middleware('auth:admin')->group(function () {
-    Route::get('/admin/dashboard', [AdminAuthController::class, 'index'])->name('admin.index');
+    Route::get('/admin/attendance/list', [AdminAuthController::class, 'index'])->name('admin.index');
 });
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
