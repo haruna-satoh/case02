@@ -10,6 +10,11 @@
             <h2 class="attendance__title">
                 2023年6月1日の勤怠
             </h2>
+            <div class="attendance__date-nav">
+                <button class="attendance__button">
+                    前日
+                </button>
+            </div>
         </div>
     </div>
 @endsection
