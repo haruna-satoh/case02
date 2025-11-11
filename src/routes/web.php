@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,11 +15,15 @@ use App\Http\Controllers\AdminController;
 |
 */
 
+Route::middleware('auth:admin')->group(function () {
+    Route::get('/admin/dashboard', [AdminAuthController::class, 'index'])->name('admin.index');
+});
+
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::get('/admin/login', [AdminController::class, 'adminLogin'])->name('admin.login');
-Route::post('/admin/login', [AdminController::class, 'login']);
+Route::get('/admin/login', [AdminAuthController::class, 'adminLogin'])->name('admin.login');
+Route::post('/admin/login', [AdminAuthController::class, 'login']);
 
 Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'store']);
