@@ -32,6 +32,54 @@
                 <th>合計</th>
                 <th>詳細</th>
             </tr>
+            <tr>
+                <td>山田太郎</td>
+                <td>09:00</td>
+                <td>18:00</td>
+                <td>1:00</td>
+                <td>8:00</td>
+                <td><a href="/admin/attendance/{id}">詳細</a></td>
+            </tr>
+            <tr>
+                <td>西伶奈</td>
+                <td>09:00</td>
+                <td>18:00</td>
+                <td>1:00</td>
+                <td>8:00</td>
+                <td><a href="/admin/attendance/{id}">詳細</a></td>
+            </tr>
+            <tr>
+                <td>増田一世</td>
+                <td>09:00</td>
+                <td>18:00</td>
+                <td>1:00</td>
+                <td>8:00</td>
+                <td><a href="/admin/attendance/{id}">詳細</a></td>
+            </tr>
+            <tr>
+                <td>山本敬吉</td>
+                <td>09:00</td>
+                <td>18:00</td>
+                <td>1:00</td>
+                <td>8:00</td>
+                <td><a href="/admin/attendance/{id}">詳細</a></td>
+            </tr>
+            <tr>
+                <td>秋田朋美</td>
+                <td>09:00</td>
+                <td>18:00</td>
+                <td>1:00</td>
+                <td>8:00</td>
+                <td><a href="/admin/attendance/{id}">詳細</a></td>
+            </tr>
+            <tr>
+                <td>中西教夫</td>
+                <td>09:00</td>
+                <td>18:00</td>
+                <td>1:00</td>
+                <td>8:00</td>
+                <td><a href="/admin/attendance/{id}">詳細</a></td>
+            </tr>
         </table>
     </div>
 @endsection
