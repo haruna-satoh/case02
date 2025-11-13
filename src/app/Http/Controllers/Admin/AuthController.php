@@ -25,8 +25,4 @@ class AuthController extends Controller
             "login" => "ログイン情報が登録されていません",
         ])->withInput();
     }
-
-    public function index() {
-        return view('admin.index');
-    }
 }
