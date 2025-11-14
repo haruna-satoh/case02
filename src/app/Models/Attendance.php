@@ -36,4 +36,10 @@ class Attendance extends Model
         $totalBreak = $this->breakTimes->sum('break_time');
         return $this->total_time - $totalBreak;
     }
+
+    public function getFormattedTotalTimeAttribute() {
+        $hours = floor($this->total_time / 60);
+        $minutes = $this->total_time % 60;
+        return sprintf('%d:%02d', $hours, $minuted);
+    }
 }
