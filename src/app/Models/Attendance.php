@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\BreakTime;
+use Carbon\Carbon;
 
 class Attendance extends Model
 {
@@ -19,5 +20,20 @@ class Attendance extends Model
 
     public function breakTimes() {
         return $this->hasMany(BreakTime::class);
+    }
+
+    protected static function booted() {
+        static::saving(function ($attendance) {
+            if ($attendance->start_time && $attendance->end_time) {
+                $start = Carbon::parse($attendance->start_time);
+                $end = Carbon::parse($attendance->end_time);
+                $attendance->total_time = $end->diffInMinutes($start);
+            }
+        });
+    }
+
+    public function getWorkMinutesAttribute() {
+        $totalBreak = $this->breakTimes->sum('break_time');
+        return $this->total_time - $totalBreak;
     }
 }
