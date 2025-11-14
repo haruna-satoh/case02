@@ -22,6 +22,10 @@ class Attendance extends Model
         return $this->hasMany(BreakTime::class);
     }
 
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
     protected static function booted() {
         static::saving(function ($attendance) {
             if ($attendance->start_time && $attendance->end_time) {
