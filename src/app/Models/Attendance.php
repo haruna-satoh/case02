@@ -44,6 +44,20 @@ class Attendance extends Model
     public function getFormattedTotalTimeAttribute() {
         $hours = floor($this->total_time / 60);
         $minutes = $this->total_time % 60;
-        return sprintf('%d:%02d', $hours, $minuted);
+        return sprintf('%d:%02d', $hours, $minutes);
+    }
+
+    public function getFormattedWorkMinutesAttribute() {
+        $work = $this->work_minutes;
+        $hours = floor($work / 60);
+        $minutes = $work % 60;
+        return sprintf('%d:%02d', $hours, $minutes);
+    }
+
+    public function getFormattedBreakTimeAttribute() {
+        $break = $this->breakTimes->sum('break_time');
+        $hours = floor($break / 60);
+        $minutes = $break % 60;
+        return sprintf('%d:%02d', $hours, $minutes);
     }
 }
