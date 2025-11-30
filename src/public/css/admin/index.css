@@ -25,16 +25,32 @@
 
 .attendance__date-nav {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 8px;
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.attendance__date-input input {
+    font-size: 16px;
+    padding: 6px 12px;
+    width: 160px;
+    text-align: center;
+    border: none;
+    outline: none;
+    background: none;
+    font-weight: bold;
 }
 
 .attendance__button {
     background: none;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+    border: none;
     padding: 6px 12px;
     cursor: pointer;
+    font-size: 15px;
+    color: #808080;
+    font-weight: bold;
 }
 
 .attendance__table--cade {
