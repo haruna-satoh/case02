@@ -18,7 +18,7 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::guard('admin')->attempt($credentials)){
-            return redirect()->route('admin.index');
+            return redirect()->route('admin.attendance.index');
         }
 
         return back()->withErrors([
