@@ -17,7 +17,8 @@ use App\Http\Controllers\Admin\AttendanceController;
 */
 
 Route::middleware('auth:admin')->group(function () {
-    Route::get('/admin/attendance/list', [AttendanceController::class, 'index'])->name('admin.index');
+    Route::get('/admin/attendance/list', [AttendanceController::class, 'index'])->name('admin.attendance.index');
+    Route::get('/admin/attendance/{id}', [AttendanceController::class, 'show'])->name('admin.attendance.show');
 });
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
