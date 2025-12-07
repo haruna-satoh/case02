@@ -21,18 +21,18 @@
                 <tr>
                     <th>出勤・退勤</th>
                     <td>
-                        <input type="text" class="detail-input" value="{{ $attendance->start_time }}">
+                        <input type="text" class="detail-input" value="{{ \Carbon\Carbon::parse($attendance->start_time)->format('H:i') }}">
                         ~
-                        <input type="text" class="detail-input" value="{{ $attendance->end_time }}">
+                        <input type="text" class="detail-input" value="{{ \Carbon\Carbon::parse($attendance->end_time)->format('H:i') }}">
                     </td>
                 </tr>
                 <tr>
                     <th>休憩</th>
                     <td>
                         @if (isset($attendance->breakTimes[0]))
-                            <input type="text" class="detail-input" value="{{ $attendance->breakTimes[0]->start_time }}">
+                            <input type="text" class="detail-input" value="{{ \Carbon\Carbon::parse($attendance->breakTimes[0]->start_time)->format('H:i') }}">
                             ~
-                            <input type="text" class="detail-input" value="{{ $attendance->breakTimes[0]->end_time }}">
+                            <input type="text" class="detail-input" value="{{ \Carbon\Carbon::parse($attendance->breakTimes[0]->end_time)->format('H:i') }}">
                         @else
                             --
                         @endif
@@ -42,8 +42,8 @@
                     <th>休憩２</th>
                     <td>
                         @if (isset($attendance->breakTimes[1]))
-                            <input type="text" class="detail-input" value="{{ $attendance->breakTimes[1]->start_time }}"> ~
-                            <input type="text" class="detail-input" value="{{ $attendance->breakTimes[1]->end_time }}">
+                            <input type="text" class="detail-input" value="{{ \Carbon\Carbon::parse($attendance->breakTimes[1]->start_time)->format('H:i') }}"> ~
+                            <input type="text" class="detail-input" value="{{ \Carbon\Carbon::parse($attendance->breakTimes[1]->end_time)->format('H:i') }}">
                         @else
                             --
                         @endif
