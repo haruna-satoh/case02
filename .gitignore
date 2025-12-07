@@ -13,6 +13,4 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
-docker/
-.DS_store
-vendor/
+.DS_Store
