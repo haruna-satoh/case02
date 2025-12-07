@@ -20,13 +20,19 @@
                 </tr>
                 <tr>
                     <th>出勤・退勤</th>
-                    <td>{{ $attendance->start_time }} ~ {{ $attendance->end_time }}</td>
+                    <td>
+                        <input type="text" class="detail-input" value="{{ $attendance->start_time }}">
+                        ~
+                        <input type="text" class="detail-input" value="{{ $attendance->end_time }}">
+                    </td>
                 </tr>
                 <tr>
                     <th>休憩</th>
                     <td>
                         @if (isset($attendance->breakTimes[0]))
-                            {{ $attendance->breakTimes[0]->start_time }} ~ {{ $attendance->breakTimes[0]->end_time }}
+                            <input type="text" class="detail-input" value="{{ $attendance->breakTimes[0]->start_time }}">
+                            ~
+                            <input type="text" class="detail-input" value="{{ $attendance->breakTimes[0]->end_time }}">
                         @else
                             --
                         @endif
@@ -36,7 +42,8 @@
                     <th>休憩２</th>
                     <td>
                         @if (isset($attendance->breakTimes[1]))
-                            {{ $attendance->breakTimes[1]->start_time }} ~ {{ $attendance->breakTimes[1]->end_time }}
+                            <input type="text" class="detail-input" value="{{ $attendance->breakTimes[1]->start_time }}"> ~
+                            <input type="text" class="detail-input" value="{{ $attendance->breakTimes[1]->end_time }}">
                         @else
                             --
                         @endif
@@ -44,7 +51,9 @@
                 </tr>
                 <tr>
                     <th>備考</th>
-                    <td>{{ $attendance->note }}</td>
+                    <td>
+                        <textarea name="" id="" cols="30" rows="10" class="detail-textarea">{{ $attendance->note }}</textarea>
+                    </td>
                 </tr>
             </table>
         </div>

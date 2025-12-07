@@ -30,6 +30,26 @@
     color: #808080;
 }
 
+.detail-input {
+    width: 120px;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fff;
+    font-size: 14px;
+}
+
+.detail-textarea {
+    width: 90%;
+    height: 60px;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fff;
+    resize: none;
+    font-size: 14px;
+}
+
 .attendance-detail__button-area {
     text-align: right;
     margin-top: 32px;
