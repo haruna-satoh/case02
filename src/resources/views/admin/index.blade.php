@@ -41,8 +41,8 @@
                 @foreach($attendances as $attendance)
                     <tr>
                         <td>{{ $attendance->user->name }}</td>
-                        <td>{{ $attendance->start_time }}</td>
-                        <td>{{ $attendance->end_time }}</td>
+                        <td>{{ \Carbon\Carbon::parse($attendance->start_time)->format('H:i') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($attendance->end_time)->format('H:i') }}</td>
                         <td>{{ $attendance->formatted_break_time }}</td>
                         <td>{{ $attendance->formatted_work_minutes }}</td>
                         <td>
