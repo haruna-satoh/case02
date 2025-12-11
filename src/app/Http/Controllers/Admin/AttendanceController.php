@@ -34,19 +34,4 @@ class AttendanceController extends Controller
 
         return view('admin.attendance.show', compact('attendance', 'user'));
     }
-
-    public function update (Request $request, $id) {
-        $attendance = Attendance::find($id);
-
-        $attendance->update([
-            'start_time' => $request->start_time,
-            'end_time' => $request->end_time,
-            'break_start' => $request->break_start,
-            'break_end' => $request->break_end,
-            'note' => $request->note,
-            'status' => '承認待ち',
-        ]);
-
-        return redirect('/admin/attendance/' . $id)->with('success', '修正申請を送信しました');
-    }
 }
