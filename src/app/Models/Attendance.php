@@ -16,6 +16,7 @@ class Attendance extends Model
         'start_time',
         'end_time',
         'total_time',
+        'status',
     ];
 
     public function breakTimes() {
