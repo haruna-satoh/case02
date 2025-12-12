@@ -9,7 +9,7 @@
         <h2 class="attendance-detail__title">勤怠詳細</h2>
 
         <div class="attendance-detail__table">
-            <form action="{{ route('admin.attendance.update',$attendance->id) }}" method="post">
+            <form action="{{ route('attendance.change.store',$attendance->id) }}" method="post">
                 @csrf
                 <table>
                     <tr>
@@ -28,27 +28,34 @@
                             <input type="text" name="end_time" class="detail-input" value="{{ \Carbon\Carbon::parse($attendance->end_time)->format('H:i') }}">
                         </td>
                     </tr>
-                    <tr>
-                        <th>休憩</th>
-                        <td>
-                            @if (isset($attendance->breakTimes[0]))
-                                <input type="text" name="break_start" class="detail-input" value="{{ \Carbon\Carbon::parse($attendance->breakTimes[0]->start_time)->format('H:i') }}">
+                    @php
+                        $breaks = $attendance->breakTimes;
+                        $count = count($breaks);
+                    @endphp
+
+                    @for ($i = 0; $i < $count; $i++)
+                        @php
+                            $b = $breaks[$i];
+                        @endphp
+                        <tr>
+                            <th>休憩{{ $i + 1 }}</th>
+                            <td>
+                                <input type="hidden" name="breaks[{{ $i }}][break_number]" value="{{ $i + 1 }}">
+
+                                <input type="time" name="breaks[{{ $i }}][start_time]" class="detail-input" value="{{ $b ? \Carbon\Carbon::parse($b->start_time)->format('H:i') : '' }}">
                                 ~
-                                <input type="text" name="break_end" class="detail-input" value="{{ \Carbon\Carbon::parse($attendance->breakTimes[0]->end_time)->format('H:i') }}">
-                            @else
-                                --
-                            @endif
-                        </td>
-                    </tr>
+                                <input type="time" name="breaks[{{ $i }}][end_time]" class="detail-input" value="{{ $b ? \Carbon\Carbon::parse($b->end_time)->format('H:i') : '' }}">
+                            </td>
+                        </tr>
+                    @endfor
                     <tr>
-                        <th>休憩２</th>
+                        <th>休憩{{ $count + 1 }}</th>
                         <td>
-                            @if (isset($attendance->breakTimes[1]))
-                                <input type="text" name="break_start" class="detail-input" value="{{ \Carbon\Carbon::parse($attendance->breakTimes[1]->start_time)->format('H:i') }}"> ~
-                                <input type="text" name="break_end" class="detail-input" value="{{ \Carbon\Carbon::parse($attendance->breakTimes[1]->end_time)->format('H:i') }}">
-                            @else
-                                --
-                            @endif
+                            <input type="hidden" name="breaks[{{ $count }}][break_number]" value="{{ $count + 1 }}">
+
+                            <input type="time" name="breaks[{{ $count }}][start_time]" class="detail-input" value="">
+                            ~
+                            <input type="time" name="breaks[{{ $count }}][end_time]" class="detail-input" value="">
                         </td>
                     </tr>
                     <tr>
