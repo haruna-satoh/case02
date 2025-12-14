@@ -23,9 +23,18 @@
                     <tr>
                         <th>出勤・退勤</th>
                         <td>
-                            <input type="text" name="start_time" class="detail-input" value="{{ \Carbon\Carbon::parse($attendance->start_time)->format('H:i') }}">
+                            <input type="text" name="start_time" class="detail-input" value="{{ old('start_time', \Carbon\Carbon::parse($attendance->start_time)->format('H:i')) }}">
+
+                            @error('start_time')
+                                <p class="error">{{ $message }} </p>
+                            @enderror
+
                             ~
-                            <input type="text" name="end_time" class="detail-input" value="{{ \Carbon\Carbon::parse($attendance->end_time)->format('H:i') }}">
+                            <input type="text" name="end_time" class="detail-input" value="{{ old('end_time', \Carbon\Carbon::parse($attendance->end_time)->format('H:i')) }}">
+
+                            @error('end_time')
+                                <p class="error">{{ $message }} </p>
+                            @enderror
                         </td>
                     </tr>
                     @php
@@ -42,9 +51,17 @@
                             <td>
                                 <input type="hidden" name="breaks[{{ $i }}][break_number]" value="{{ $i + 1 }}">
 
-                                <input type="time" name="breaks[{{ $i }}][start_time]" class="detail-input" value="{{ $b ? \Carbon\Carbon::parse($b->start_time)->format('H:i') : '' }}">
+                                <input type="time" name="breaks[{{ $i }}][start_time]" class="detail-input" value="{{ optional($b)->start_time ? \Carbon\Carbon::parse($b->start_time)->format('H:i') : '' }}">
+
+                                @error("breaks.$i.start_time")
+                                    <p class="error">{{ $message }}</p>
+                                @enderror
                                 ~
-                                <input type="time" name="breaks[{{ $i }}][end_time]" class="detail-input" value="{{ $b ? \Carbon\Carbon::parse($b->end_time)->format('H:i') : '' }}">
+                                <input type="time" name="breaks[{{ $i }}][end_time]" class="detail-input" value="{{ optional($b)->end_time ? \Carbon\Carbon::parse($b->end_time)->format('H:i') : '' }}">
+
+                                @error("breaks.$i.end_time")
+                                    <p class="error">{{ $message }}</p>
+                                @enderror
                             </td>
                         </tr>
                     @endfor
@@ -61,7 +78,11 @@
                     <tr>
                         <th>備考</th>
                         <td>
-                            <textarea name="note" id="" cols="30" rows="10" class="detail-textarea">{{ $attendance->note }}</textarea>
+                            <textarea name="note" id="" cols="30" rows="10" class="detail-textarea">{{ old('note', $attendance->note) }}</textarea>
+
+                            @error('note')
+                                <p class="error">{{ $message }} </p>
+                            @enderror
                         </td>
                     </tr>
                 </table>
