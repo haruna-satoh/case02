@@ -39,6 +39,14 @@
     font-size: 14px;
 }
 
+.error {
+    color: #ff0000;
+    font-size: 13px;
+    margin-top: 5px;
+    height: 20px;
+}
+
+
 .detail-textarea {
     width: 90%;
     height: 60px;
