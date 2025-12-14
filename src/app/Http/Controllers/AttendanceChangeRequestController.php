@@ -4,15 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Attendance;
-use App\Models\AttendanceChangeRequest;
+use App\Models\AttendanceChangeRequest as AttendanceChangeRequestModel;
 use App\Models\AttendanceBreakChangeRequest;
+use App\Http\Requests\AttendanceChangeRequest;
 
 class AttendanceChangeRequestController extends Controller
 {
-    public function store(Request $request, $attendance_id) {
+    public function store(AttendanceChangeRequest $request, $attendance_id) {
         $attendance = Attendance::findOrFail($attendance_id);
 
-        $changeRequest = AttendanceChangeRequest::create([
+        $changeRequest = AttendanceChangeRequestModel::create([
             'attendance_id' => $attendance->id,
             'start_time' => $request->start_time,
             'end_time' => $request->end_time,
