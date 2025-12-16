@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
-use App\Http\Controllers\Admin\AttendanceController;
+use App\Http\Controllers\Admin\AttendanceController as AdminAttendanceController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AttendanceChangeRequestController;
 
 /*
@@ -18,9 +19,13 @@ use App\Http\Controllers\AttendanceChangeRequestController;
 */
 
 Route::middleware('auth:admin')->group(function () {
-    Route::get('/admin/attendance/list', [AttendanceController::class, 'index'])->name('admin.attendance.index');
-    Route::get('/admin/attendance/{id}', [AttendanceController::class, 'show'])->name('admin.attendance.show');
+    Route::get('/admin/attendance/list', [AdminAttendanceController::class, 'index'])->name('admin.attendance.index');
+    Route::get('/admin/attendance/{id}', [AdminAttendanceController::class, 'show'])->name('admin.attendance.show');
     Route::post('/admin/attendance/change/{id}', [AttendanceChangeRequestController::class, 'store'])->name('attendance.change.store');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
 });
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
