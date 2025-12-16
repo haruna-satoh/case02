@@ -12,10 +12,20 @@
         <p>{{ now()->format('H:i') }}</p>
 
         @if (!$attendance)
-            <button>出勤</button>
+            <form action="{{ route('attendance.start') }}" method="post">
+                @csrf
+                <button type="submit">出勤</button>
+            </form>
         @elseif ($attendance && !$attendance->end_time)
-            <button>退勤</button>
-            <button>休憩入</button>
+            <form action="{{ route('attendance.end') }}" method="post">
+                @csrf
+                <button type="submit">退勤</button>
+            </form>
+
+            <form action="{{ route('attendance.break.start') }}" method="post">
+                @csrf
+                <button type="submit">休憩入</button>
+            </form>
         @else
             <p>お疲れ様でした。</p>
         @endif
