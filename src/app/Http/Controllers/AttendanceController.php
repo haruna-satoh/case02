@@ -44,6 +44,17 @@ class AttendanceController extends Controller
     }
 
     public function end() {
+        $attendance = Attendance::where('user_id', auth()->id())->whereDate('date',today())->first();
+
+        if (!$attendance) {
+            return redirect()->back();
+        }
+
+        $attendance->update([
+            'end_time' => Carbon::now()->format('H:i'),
+            'status' => '退勤済',
+        ]);
+
         return redirect()->back();
     }
 
