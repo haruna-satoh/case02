@@ -26,6 +26,9 @@ Route::middleware('auth:admin')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
+    Route::post('/attendance/start', [AttendanceController::class, 'start'])->name('attendance.start');
+    Route::post('/attendance/end', [AttendanceController::class, 'end'])->name('attendance.end');
+    Route::post('/attendance/break/start', [AttendanceController::class, 'breakStart'])->name('attendance.break.start');
 });
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
