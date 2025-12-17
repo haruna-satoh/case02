@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Attendance;
+use App\Models\BreakTime;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -59,6 +60,33 @@ class AttendanceController extends Controller
     }
 
     public function breakStart() {
+        $attendance = Attendance::where('user_id', auth()->id())->whereDate('date', now()->toDateString())->firstOrFail();
+
+        BreakTime::create([
+            'attendance_id' => $attendance->id,
+            'start_time' => now()->format('H:i'),
+        ]);
+
+        $attendance->update([
+            'status' => '休憩中',
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function breakEnd() {
+        $attendance = Attendance::where('user_id', auth()->id())->whereDate('date', now()->toDateString())->firstOrFail();
+
+        $break = BreakTime::where('attendance_id', $attendance->id)->whereNull('end_time')->latest()->firstOrFail();
+
+        $break->update([
+            'end_time' => now()->format('H:i'),
+        ]);
+
+        $attendance->update([
+            'status' => '出勤中',
+        ]);
+
         return redirect()->back();
     }
 }
