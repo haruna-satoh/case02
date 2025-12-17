@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Attendance;
 use App\Models\BreakTime;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\Auth;
 
 class AttendanceController extends Controller
@@ -88,5 +89,18 @@ class AttendanceController extends Controller
         ]);
 
         return redirect()->back();
+    }
+
+    public function list() {
+        $user = auth()->user();
+
+        $startOfMonth = Carbon::now()->startOfMonth();
+        $endOfMonth = Carbon::now()->endOfMonth();
+
+        $dates = CarbonPeriod::create($startOfMonth, $endOfMonth);
+
+        $attendances = Attendance::where('user_id', $user->id)->whereBetween('date', [$startOfMonth, $endOfMonth])->get()->keyBy('date');
+
+        return view('attendance.list', compact('dates', 'attendances'));
     }
 }
