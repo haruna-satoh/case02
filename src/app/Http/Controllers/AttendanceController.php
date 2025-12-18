@@ -106,7 +106,9 @@ class AttendanceController extends Controller
         return view('attendance.list', compact('dates', 'attendances', 'month'));
     }
 
-    public function show() {
-        return view('attendance.show');
+    public function show($id) {
+        $attendance = Auth::user()->attendances()->findOrFail($id);
+
+        return view('attendance.show', compact('attendance'));
     }
 }
