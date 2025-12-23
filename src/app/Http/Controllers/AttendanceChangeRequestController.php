@@ -11,7 +11,7 @@ use App\Http\Requests\AttendanceChangeRequest;
 class AttendanceChangeRequestController extends Controller
 {
     public function store(AttendanceChangeRequest $request, $attendance_id) {
-        $attendance = Attendance::findOrFail($attendance_id);
+        $attendance = Attendance::where('id', $attendance_id)->where('user_id', auth()->id())->firstOrFail();
 
         $changeRequest = AttendanceChangeRequestModel::create([
             'attendance_id' => $attendance->id,
