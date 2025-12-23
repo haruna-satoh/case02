@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/attendance/break/end', [AttendanceController::class, 'breakEnd'])->name('attendance.break.end');
     Route::get('/attendance/list', [AttendanceController::class, 'list'])->name('attendance.list');
     Route::get('attendance/detail/{id}', [AttendanceController::class, 'show'])->name('attendance.show');
+    Route::post('/attendance/change/{id}', [AttendanceChangeRequestController::class, 'store'])->name('attendance.change.store.user');
 });
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
