@@ -9,7 +9,7 @@
         <h2 class="attendance-detail__title">勤怠詳細</h2>
 
         <div class="attendance-detail__table">
-            <form action="{{ route('attendance.change.store',$attendance->id) }}" method="post">
+            <form action="{{ route('attendance.change.store.user',$attendance->id) }}" method="post">
                 @csrf
                 <table>
                     <tr>
@@ -78,7 +78,7 @@
                     <tr>
                         <th>備考</th>
                         <td>
-                            <textarea name="note" id="" cols="30" rows="10" class="detail-textarea">{{ old('note', $attendance->note) }}</textarea>
+                            <textarea name="note" id="" cols="30" rows="10" class="detail-textarea">{{ old('note', $attendance->changeRequest->note ?? '') }}</textarea>
 
                             @error('note')
                                 <p class="error">{{ $message }} </p>
