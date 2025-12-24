@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\Admin\AttendanceController as AdminAttendanceController;
+use App\Http\Controllers\Admin\AttendanceChangeController as AdminAttendanceChangeController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AttendanceChangeRequestController;
 
@@ -21,7 +22,7 @@ use App\Http\Controllers\AttendanceChangeRequestController;
 Route::middleware('auth:admin')->group(function () {
     Route::get('/admin/attendance/list', [AdminAttendanceController::class, 'index'])->name('admin.attendance.index');
     Route::get('/admin/attendance/{id}', [AdminAttendanceController::class, 'show'])->name('admin.attendance.show');
-    Route::post('/admin/attendance/change/{id}', [AttendanceChangeRequestController::class, 'store'])->name('attendance.change.store');
+    Route::patch('/admin/attendance/{id}', [AdminAttendanceController::class, 'update'])->name('admin.attendance.update');
 });
 
 Route::middleware('auth')->group(function () {

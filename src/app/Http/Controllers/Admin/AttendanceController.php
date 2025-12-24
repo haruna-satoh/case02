@@ -34,4 +34,33 @@ class AttendanceController extends Controller
 
         return view('admin.attendance.show', compact('attendance', 'user'));
     }
+
+    public function update(Request $request, $id) {
+        $attendance =Attendance::with('breakTimes')->findOrFail($id);
+
+        $attendance->update([
+            'start_time' =>$request->start_time,
+            'end_time' => $request->end_time,
+            'note' => $request->note,
+            'status' => '承認済み',
+        ]);
+
+        if ($request->breaks) {
+            foreach ($request->breaks as $index => $break) {
+                if (empty($break['start_time']) && empty($break['end_time'])) {
+                    continue;
+                }
+
+                $attendance->breakTimes()->updateOrCreate(
+                    ['id' => $attendance->breakTimes[$index]->id ?? null],
+                    [
+                        'start_time' => $break['start_time'],
+                        'end_time' => $break['end_time'],
+                    ]
+                );
+            }
+        }
+
+        return redirect()->route('admin.attendance.show', $attendance->id)->with('success', '勤怠情報を修正しました');
+    }
 }
