@@ -13,7 +13,7 @@ class AttendanceChangeController extends Controller
 {
     public function update($id) {
         DB::transaction(function () use ($id) {
-            $request = AttendanceChangeRequest::with('breakRequests')->findOrFail($id);
+            $request = AttendanceChangeRequestModels::with('breakRequests')->findOrFail($id);
             $attendance = $request->attendance;
 
             $attendance->update([
