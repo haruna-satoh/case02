@@ -9,8 +9,9 @@
         <h2 class="attendance-detail__title">勤怠詳細</h2>
 
         <div class="attendance-detail__table">
-            <form action="{{ route('attendance.change.store',$attendance->id) }}" method="post">
+            <form action="{{ route('admin.attendance.update',$attendance->id) }}" method="post">
                 @csrf
+                @method('patch')
                 <table>
                     <tr>
                         <th>名前</th>
@@ -23,14 +24,14 @@
                     <tr>
                         <th>出勤・退勤</th>
                         <td>
-                            <input type="text" name="start_time" class="detail-input" value="{{ old('start_time', \Carbon\Carbon::parse($attendance->start_time)->format('H:i')) }}">
+                            <input type="time" name="start_time" class="detail-input" value="{{ old('start_time', \Carbon\Carbon::parse($attendance->start_time)->format('H:i')) }}">
 
                             @error('start_time')
                                 <p class="error">{{ $message }} </p>
                             @enderror
 
                             ~
-                            <input type="text" name="end_time" class="detail-input" value="{{ old('end_time', \Carbon\Carbon::parse($attendance->end_time)->format('H:i')) }}">
+                            <input type="time" name="end_time" class="detail-input" value="{{ old('end_time', \Carbon\Carbon::parse($attendance->end_time)->format('H:i')) }}">
 
                             @error('end_time')
                                 <p class="error">{{ $message }} </p>
@@ -91,7 +92,7 @@
                     @if ($attendance->status === '承認待ち')
                         <p class="error">承認待ちのため修正はできません。</p>
                     @else
-                        <button type="submit"   class="attendance-detail__edit-button">
+                        <button type="submit" class="attendance-detail__edit-button">
                             修正
                         </button>
                     @endif
