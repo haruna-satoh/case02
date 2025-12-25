@@ -22,7 +22,8 @@ use App\Http\Controllers\AttendanceChangeRequestController;
 Route::middleware('auth:admin')->group(function () {
     Route::get('/admin/attendance/list', [AdminAttendanceController::class, 'index'])->name('admin.attendance.index');
     Route::get('/admin/attendance/{id}', [AdminAttendanceController::class, 'show'])->name('admin.attendance.show');
-    Route::patch('/admin/attendance/{id}', [AdminAttendanceController::class, 'update'])->name('admin.attendance.update');
+    Route::patch('/admin/attendance/{id}', [AdminAttendanceChangeController::class, 'update'])->name('admin.attendance.update');
+    Route::get('/stamp_correction_request/list', [AdminAttendanceChangeController::class, 'index'])->name('admin.attendance.change.index');
 });
 
 Route::middleware('auth')->group(function () {
