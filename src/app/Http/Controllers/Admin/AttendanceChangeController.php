@@ -4,40 +4,43 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Attendance;
 use App\Models\AttendanceChangeRequest as AttendanceChangeRequestModels;
-use App\Models\AttendanceBreak;
+use App\Models\BreakTime;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\AttendanceChangeRequest;
 
 class AttendanceChangeController extends Controller
 {
-    public function update($id) {
-        DB::transaction(function () use ($id) {
-            $request = AttendanceChangeRequestModels::with('breakRequests')->findOrFail($id);
-            $attendance = $request->attendance;
+    public function update(Request $request, $id) {
+        DB::transaction(function () use ($request, $id) {
+            $attendance = Attendance::findOrFail($id);
 
             $attendance->update([
                 'start_time' => $request->start_time,
                 'end_time' => $request->end_time,
+                'note' =>$request->note,
                 'status' => '承認済み',
             ]);
 
-            AttendanceBreak::where('attendance_id', $attendance->id)->delete();
+            BreakTime::where('attendance_id', $attendance->id)->delete();
 
-            foreach ($request->breakRequests as $break) {
-                AttendanceBreak::create([
+            foreach ($request->breaks as $break) {
+                BreakTime::create([
                     'attendance_id' => $attendance->id,
-                    'break_number' => $break->break_number,
-                    'start_time' => $break->start_time,
-                    'end_time' => $break->end_time,
+                    'break_number' => $break['break_number'],
+                    'start_time' => $break['start_time'] ?? null,
+                    'end_time' => $break['end_time'] ?? null,
                 ]);
             }
-
-            $request->update([
-                'status' => '承認済み',
-            ]);
         });
 
-        return redirect()->back()->with('success', '勤怠修正を承認しました');
+        return redirect()->route('admin.attendance.show', $id)->with('success', '勤怠修正を承認しました');
+    }
+
+    public function index() {
+        $changeRequests = AttendanceChangeRequestModels::with(['attendance.user'])->where('status', '承認待ち')->orderBy('created_at', 'desc')->get();
+
+        return view('admin.attendance.change.index', compact('changeRequests'));
     }
 }
