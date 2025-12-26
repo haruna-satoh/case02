@@ -43,4 +43,14 @@ class AttendanceChangeController extends Controller
 
         return view('admin.attendance.change.index', compact('changeRequests'));
     }
+
+    public function show($attendance_correct_request_id) {
+        $changeRequest = AttendanceChangeRequestModels::with([
+            'user',
+            'attendance.breakTimes',
+            'breakChanges'
+        ])->findOrFail($attendance_correct_request_id);
+
+        return view('admin.attendance.change.show', compact('changeRequest'));
+    }
 }
