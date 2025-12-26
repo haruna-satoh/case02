@@ -15,6 +15,7 @@ class AttendanceChangeRequestController extends Controller
 
         $changeRequest = AttendanceChangeRequestModel::create([
             'attendance_id' => $attendance->id,
+            'user_id' => auth()->id(),
             'start_time' => $request->start_time,
             'end_time' => $request->end_time,
             'note' => $request->note,
