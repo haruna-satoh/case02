@@ -24,7 +24,9 @@
                     <td>{{ $request->note }}</td>
                     <td>{{ \Carbon\Carbon::parse($request->created_at)->format('Y/m/d') }}</td>
                     <td>
-                        <a href="#">詳細</a>
+                        <a href="{{ route('admin.change_request.show', $request->id) }}">
+                            詳細
+                        </a>
                     </td>
                 </tr>
             @endforeach
