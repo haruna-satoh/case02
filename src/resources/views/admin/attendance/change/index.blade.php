@@ -3,6 +3,12 @@
 @section('content')
     <h2>申請一覧</h2>
 
+    <div class="attendance-detail__tab">
+        <a href="{{ route('admin.attendance.change.index') }}" class="attendance-detail__tab-button {{ $tab === 'pending' ? 'is-active' : '' }}">承認待ち</a>
+
+        <a href="{{ route('admin.attendance.change.index', ['tab' => 'approved']) }}" class="attendance-detail__tab-button {{ $tab === 'approved' ? 'is-active' : '' }}">承認済み</a>
+    </div>
+
     <table>
         <thead>
             <tr>

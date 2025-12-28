@@ -38,10 +38,20 @@ class AttendanceChangeController extends Controller
         return redirect()->route('admin.attendance.show', $id)->with('success', '勤怠修正を承認しました');
     }
 
-    public function index() {
-        $changeRequests = AttendanceChangeRequestModels::with(['attendance.user'])->where('status', '承認待ち')->orderBy('created_at', 'desc')->get();
+    public function index(Request $request) {
+        $tab = $request->query('tab', 'pending');
 
-        return view('admin.attendance.change.index', compact('changeRequests'));
+        $query = AttendanceChangeRequestModels::with(['user', 'attendance'])->orderBy('created_at', 'desc');
+
+        if ($tab === 'approved') {
+            $query->where('status', '承認済み');
+        } else {
+            $query->where('status', '承認待ち');
+        }
+
+        $changeRequests = $query->get();
+
+        return view('admin.attendance.change.index', compact('changeRequests', 'tab'));
     }
 
     public function show($attendance_correct_request_id) {
