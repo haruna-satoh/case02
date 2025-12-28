@@ -53,4 +53,32 @@ class AttendanceChangeController extends Controller
 
         return view('admin.attendance.change.show', compact('changeRequest'));
     }
+
+    public function approve($attendance_correct_request_id) {
+        $changeRequest = AttendanceChangeRequestModels::with([
+            'attendance',
+            'breakChanges'
+        ])->findOrFail($attendance_correct_request_id);
+
+        $attendance = $changeRequest->attendance;
+
+        $attendance->update([
+            'start_time' => $changeRequest->start_time,
+            'end_time' => $changeRequest->end_time,
+            'status' => '承認済み',
+        ]);
+
+        foreach ($changeRequest->breakChanges as $break) {
+            $attendance->breakTimes()->create([
+                'start_time' => $break->start_time,
+                'end_time' => $break->end_time,
+            ]);
+        }
+
+        $changeRequest->update([
+            'status' => '承認済み',
+        ]);
+
+        return redirect()->route('admin.attendance.change.index')->with('success', '修正申請を承認しました');
+    }
 }
