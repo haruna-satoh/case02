@@ -55,7 +55,11 @@
                 </div>
 
                 <div class="attendance-detail__button">
-                    <button class="btn-approve" type="submit">承認</button>
+                    @if ($changeRequest->status === '承認待ち')
+                        <button class="btn-approve" type="submit">承認</button>
+                    @else
+                        <p class="attendance-detail__approved">承認済み</p>
+                    @endif
                 </div>
             </form>
         </div>
