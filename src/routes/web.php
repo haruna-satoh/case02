@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/attendance/list', [AttendanceController::class, 'list'])->name('attendance.list');
     Route::get('attendance/detail/{id}', [AttendanceController::class, 'show'])->name('attendance.show');
     Route::post('/attendance/change/{id}', [AttendanceChangeRequestController::class, 'store'])->name('attendance.change.store.user');
+    Route::get('/stamp_correction_request/list', [AttendanceChangeRequestController::class, 'index'])->name('attendance.change.index');
 });
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
