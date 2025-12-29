@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\Admin\AttendanceController as AdminAttendanceController;
 use App\Http\Controllers\Admin\AttendanceChangeController as AdminAttendanceChangeController;
+use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AttendanceChangeRequestController;
 
@@ -26,6 +27,7 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('/stamp_correction_request/list', [AdminAttendanceChangeController::class, 'index'])->name('admin.attendance.change.index');
     Route::get('/stamp_correction_request/approve/{attendance_correct_request_id}', [AdminAttendanceChangeController::class, 'show'])->name('admin.change_request.show');
     Route::patch('/stamp_correction_request/{id}/approve', [AdminAttendanceChangeController::class, 'approve'])->name('admin.change_request.approve');
+    Route::get('/admin/staff/list', [StaffController::class, 'index'])->name('admin.staff.index');
 });
 
 Route::middleware('auth')->group(function () {
