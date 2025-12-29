@@ -5,26 +5,30 @@
 @endsection
 
 @section('content')
-    <h2>スタッフ一覧</h2>
+<div class="staff-list">
+    <h2 class="staff-list__title">スタッフ一覧</h2>
 
-    <table>
-        <thead>
-            <tr>
-                <th>名前</th>
-                <th>メールアドレス</th>
-                <th>月次勤怠</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($users as $user)
+    <div class="staff-list__table-wrap">
+        <table>
+            <thead>
                 <tr>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td>
-                        <a href="#">詳細</a>
-                    </td>
+                    <th>名前</th>
+                    <th>メールアドレス</th>
+                    <th>月次勤怠</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach ($users as $user)
+                    <tr>
+                        <td>{{ $user->name }}</td>
+                        <td>{{ $user->email }}</td>
+                        <td>
+                            <a href="#">詳細</a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
 @endsection
