@@ -10,6 +10,7 @@ use App\Http\Requests\AttendanceChangeRequest;
 
 class AttendanceChangeRequestController extends Controller
 {
+    // 一般ユーザー修正申請
     public function store(AttendanceChangeRequest $request, $attendance_id) {
         $attendance = Attendance::where('id', $attendance_id)->where('user_id', auth()->id())->firstOrFail();
 
@@ -38,5 +39,22 @@ class AttendanceChangeRequestController extends Controller
         ]);
 
         return redirect()->back()->with('success', '修正申請を送信しました！');
+    }
+
+    // 一般ユーザー申請一覧
+    public function index(Request $request) {
+        $tab = $request->query('tab', 'pending');
+
+        $query = AttendanceChangeRequestModel::where('user_id', auth()->id())->orderBy('created_at', 'desc');
+
+        if ($tab === 'approved') {
+            $query->where('status', '承認済み');
+        } else {
+            $query->where('status', '承認待ち');
+        }
+
+        $changeRequests = $query->get();
+
+        return view('attendance.change.index', compact('changeRequests', 'tab'));
     }
 }
