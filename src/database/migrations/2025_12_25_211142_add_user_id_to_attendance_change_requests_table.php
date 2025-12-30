@@ -14,7 +14,10 @@ class AddUserIdToAttendanceChangeRequestsTable extends Migration
     public function up()
     {
         Schema::table('attendance_change_requests', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            if (!Schema::hasColumn('attendance_change_requests', 'user_id')){
+                $table->unsignedBigInteger('user_id');
+                $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            }
         });
     }
 
@@ -27,6 +30,8 @@ class AddUserIdToAttendanceChangeRequestsTable extends Migration
     {
         Schema::table('attendance_change_requests', function (Blueprint $table) {
             $table->dropForeign(['user_id']);
+
+            $table->dropColumn('user_id');
         });
     }
 }
