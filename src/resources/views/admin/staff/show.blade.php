@@ -40,17 +40,22 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($attendances as $attendance)
+            @foreach ($dates as $date)
+                @php
+                    $attendance = $attendances[$date->format('Y-m-d')] ?? null;
+                @endphp
                 <tr>
-                    <td>{{ \Carbon\Carbon::parse($attendance->date)->isoFormat('MM/DD(ddd)') }}</td>
+                    <td>{{ $date->isoFormat('MM/DD(ddd)') }}</td>
                     <td>{{ $attendance && $attendance->start_time ? \Carbon\Carbon::parse($attendance->start_time)->format('H:i') : '' }}</td>
                     <td>{{ $attendance && $attendance->end_time ? \Carbon\Carbon::parse($attendance->end_time)->format('H:i') : '' }}</td>
                     <td>{{ $attendance ? $attendance->formatted_break_time : '' }}</td>
                     <td>{{ $attendance ? $attendance->formatted_work_minutes : '' }}</td>
                     <td>
-                        <a href="{{ route('admin.attendance.show', $attendance->id) }}">
-                            詳細
-                        </a>
+                        @if ($attendance)
+                            <a href="{{ route('admin.attendance.show', $attendance->id) }}">
+                                詳細
+                            </a>
+                        @endif
                     </td>
                 </tr>
             @endforeach

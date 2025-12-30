@@ -10,25 +10,38 @@ use Carbon\Carbon;
 
 class StaffController extends Controller
 {
+    // スタッフ一覧
     public function index() {
         $users = User::orderBy('id')->get();
 
         return view('admin.staff.index', compact('users'));
     }
 
+    // スタッフ別勤怠一覧
     public function show(Request $request, $userId) {
         $user = User::findOrFail($userId);
 
-        $month = $request->query('month') ? Carbon::createFromFormat('Y-m', $request->query('month')) : Carbon::now();
+        $month = $request->query('month') ? Carbon::parse($request->query('month') . '-01') : Carbon::now()->startOfMonth();
 
         $startOfMonth = $month->copy()->startOfMonth();
         $endOfMonth = $month->copy()->endOfMonth();
 
-        $attendances = Attendance::where('user_id', $user->id)->whereBetween('date', [$startOfMonth, $endOfMonth])->orderBy('date', 'desc')->get();
+        $attendances = Attendance::where('user_id', $user->id)->whereBetween('date', [$startOfMonth, $endOfMonth])->get()->keyBy(function ($attendance) {
+            return Carbon::parse($attendance->date)->format('Y-m-d');
+        });
 
-        $prevMonth = $month->copy()->subMonth()->format('Y-m');
-        $nextMonth = $month->copy()->addMonth()->format('Y-m');
+        $dates = [];
+        $current = $startOfMonth->copy();
+        while ($current->lte($endOfMonth)) {
+            $dates[] = $current->copy();
+            $current->addDay();
+        }
 
-        return view('admin.staff.show', compact('user', 'attendances', 'month', 'prevMonth', 'nextMonth'));
+        $baseMonth = $month->copy();
+
+        $prevMonth = $baseMonth->copy()->subMonth()->format('Y-m');
+        $nextMonth = $baseMonth->copy()->addMonth()->format('Y-m');
+
+        return view('admin.staff.show', compact('user', 'dates', 'attendances', 'month', 'prevMonth', 'nextMonth'));
     }
 }
