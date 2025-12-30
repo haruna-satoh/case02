@@ -23,7 +23,7 @@
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>
-                            <a href="#">詳細</a>
+                            <a href="{{ route('admin.staff.show', $user->id) }}">詳細</a>
                         </td>
                     </tr>
                 @endforeach
