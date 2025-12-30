@@ -28,6 +28,7 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('/stamp_correction_request/approve/{attendance_correct_request_id}', [AdminAttendanceChangeController::class, 'show'])->name('admin.change_request.show');
     Route::patch('/stamp_correction_request/{id}/approve', [AdminAttendanceChangeController::class, 'approve'])->name('admin.change_request.approve');
     Route::get('/admin/staff/list', [StaffController::class, 'index'])->name('admin.staff.index');
+    Route::get('/admin/attendance/staff/{id}', [StaffController::class, 'show'])->name('admin.staff.show');
 });
 
 Route::middleware('auth')->group(function () {
