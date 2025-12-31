@@ -44,4 +44,49 @@ class StaffController extends Controller
 
         return view('admin.staff.show', compact('user', 'dates', 'attendances', 'month', 'prevMonth', 'nextMonth'));
     }
+
+    // CSV出力
+    public function exportCsv(Request $request, $userId) {
+        $user = User::findOrFail($userId);
+
+        $month = $request->query('month') ? Carbon::parse($request->query('month') . '-01') : Carbon::now()->startOfMonth();
+
+        $startOfMonth = $month->copy()->startOfMonth();
+        $endOfMonth = $month->copy()->endOfMonth();
+
+        $attendances = Attendance::where('user_id', $user->id)->whereBetween('date', [$startOfMonth, $endOfMonth])->orderBy('date')->get();
+
+        $fileName = 'attendance_' . $user->name . '_' . $month->format('Y_m') . '.csv';
+
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename={$fileName}",
+        ];
+
+        $callback = function () use ($attendances) {
+            $handle = fopen('php://output', 'w');
+
+            fputcsv($handle, [
+                '日付',
+                '出勤',
+                '退勤',
+                '休憩',
+                '合計'
+            ]);
+
+            foreach ($attendances as $attendance) {
+                fputcsv($handle, [
+                    Carbon::parse($attendance->date)->format('Y/m/d'),
+                    optional($attendance->start_time)->format('H:i'),
+                    optional($attendance->end_time)->format('H:i'),
+                    $attendance->formatted_break_time ?? '',
+                    $attendance->formatted_total_time ?? '',
+                ]);
+            }
+
+            fclose($handle);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
 }

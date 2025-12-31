@@ -61,5 +61,8 @@
             @endforeach
         </tbody>
     </table>
+    <a href="{{ route('admin.staff.csv', ['id' => $user->id, 'month' => $month->format('Y-m')]) }}">
+        CSV出力
+    </a>
 </div>
 @endsection
