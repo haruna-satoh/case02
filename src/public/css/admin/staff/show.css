@@ -65,3 +65,20 @@
     text-decoration: none;
     font-weight: bold;
 }
+
+.attendance__csv {
+    display: flex;
+    justify-content: flex-end;
+    margin: 32px 0;
+}
+
+.attendance__csv a {
+    display: inline-block;
+    padding: 12px 32px;
+    background-color: #000;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 6px;
+    text-decoration: none;
+}
