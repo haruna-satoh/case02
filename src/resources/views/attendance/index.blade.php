@@ -18,7 +18,7 @@
             @endif
         </p>
 
-        <p class="attendance-date">{{ now()->isoFormat('Y年M月D日(ddd)') }}</p>
+        <p class="attendance-date">{{ now()->isoFormat('YYYY年MM月DD日(ddd)') }}</p>
         <p class="attendance-time">{{ now()->format('H:i') }}</p>
 
         <div class="attendance-buttons">
