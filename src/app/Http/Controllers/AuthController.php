@@ -32,13 +32,13 @@ class AuthController extends Controller
     }
 
     public function store(RegisterRequest $request) {
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        Auth::login('$user');
+        Auth::login($user);
 
         return redirect('/attendance');
     }
