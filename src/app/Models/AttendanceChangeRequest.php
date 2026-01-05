@@ -9,6 +9,8 @@ class AttendanceChangeRequest extends Model
 {
     use HasFactory;
 
+    protected $table = 'attendance_change_requests';
+
     protected $fillable = [
         'user_id',
         'attendance_id',
