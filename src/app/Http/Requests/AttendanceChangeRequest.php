@@ -39,8 +39,18 @@ class AttendanceChangeRequest extends FormRequest
             $end = $this->input('end_time');
             $breaks = $this->input('breaks', []);
 
-            if ($start && $end && $start >= $end) {
-                $validator->errors()->add('start_time', '出勤時間もしくは退勤時間が不適切な値です');
+            if ($start && $end) {
+                if ($start >= $end) {
+                    $validator->errors()->add(
+                        'start_time',
+                        '出勤時間が不適切な値です'
+                    );
+
+                    $validator->errors()->add(
+                        'end_time',
+                        '退勤時間が不適切な値です'
+                    );
+                }
             }
 
             foreach ($breaks as $i => $break) {
