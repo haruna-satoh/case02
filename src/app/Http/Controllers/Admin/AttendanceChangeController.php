@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Attendance;
-use App\Models\AttendanceChangeRequest as AttendanceChangeRequestModels;
+use App\Models\AttendanceChangeRequest as AttendanceChangeRequestModel;
 use App\Models\BreakTime;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\AttendanceChangeRequest;
@@ -41,7 +41,7 @@ class AttendanceChangeController extends Controller
     public function index(Request $request) {
         $tab = $request->query('tab', 'pending');
 
-        $query = AttendanceChangeRequestModels::with(['user', 'attendance'])->orderBy('created_at', 'desc');
+        $query = AttendanceChangeRequestModel::with(['user', 'attendance'])->orderBy('created_at', 'desc');
 
         if ($tab === 'approved') {
             $query->where('status', '承認済み');
@@ -55,7 +55,7 @@ class AttendanceChangeController extends Controller
     }
 
     public function show($attendance_correct_request_id) {
-        $changeRequest = AttendanceChangeRequestModels::with([
+        $changeRequest = AttendanceChangeRequestModel::with([
             'user',
             'attendance.breakTimes',
             'breakChanges'
@@ -65,7 +65,7 @@ class AttendanceChangeController extends Controller
     }
 
     public function approve($attendance_correct_request_id) {
-        $changeRequest = AttendanceChangeRequestModels::with([
+        $changeRequest = AttendanceChangeRequestModel::with([
             'attendance',
             'breakChanges'
         ])->findOrFail($attendance_correct_request_id);
