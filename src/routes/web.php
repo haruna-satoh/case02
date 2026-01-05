@@ -21,16 +21,16 @@ use App\Http\Controllers\AttendanceChangeRequestController;
 |
 */
 
-Route::middleware('auth:admin')->group(function () {
-    Route::get('/admin/attendance/list', [AdminAttendanceController::class, 'index'])->name('admin.attendance.index');
-    Route::get('/admin/attendance/{id}', [AdminAttendanceController::class, 'show'])->name('admin.attendance.show');
-    Route::patch('/admin/attendance/{id}', [AdminAttendanceChangeController::class, 'update'])->name('admin.attendance.update');
+Route::middleware('auth:admin')->prefix('admin')->group(function () {
+    Route::get('/attendance/list', [AdminAttendanceController::class, 'index'])->name('admin.attendance.index');
+    Route::get('/attendance/{id}', [AdminAttendanceController::class, 'show'])->name('admin.attendance.show');
+    Route::patch('/attendance/{id}', [AdminAttendanceChangeController::class, 'update'])->name('admin.attendance.update');
     Route::get('/stamp_correction_request/list', [AdminAttendanceChangeController::class, 'index'])->name('admin.attendance.change.index');
     Route::get('/stamp_correction_request/approve/{attendance_correct_request_id}', [AdminAttendanceChangeController::class, 'show'])->name('admin.change_request.show');
     Route::patch('/stamp_correction_request/{id}/approve', [AdminAttendanceChangeController::class, 'approve'])->name('admin.change_request.approve');
-    Route::get('/admin/staff/list', [StaffController::class, 'index'])->name('admin.staff.index');
-    Route::get('/admin/attendance/staff/{id}', [StaffController::class, 'show'])->name('admin.staff.show');
-    Route::get('/admin/attendance/staff/{id}/csv', [StaffController::class, 'exportCsv'])->name('admin.staff.csv');
+    Route::get('/staff/list', [StaffController::class, 'index'])->name('admin.staff.index');
+    Route::get('/attendance/staff/{id}', [StaffController::class, 'show'])->name('admin.staff.show');
+    Route::get('/attendance/staff/{id}/csv', [StaffController::class, 'exportCsv'])->name('admin.staff.csv');
 });
 
 Route::middleware('auth')->group(function () {
