@@ -30,26 +30,51 @@
                         <tr>
                             <th>出勤・退勤</th>
                             <td>
-                                {{ \Carbon\Carbon::parse($changeRequest->start_time)->format('H:i') }}
-                                ~
-                                {{ \Carbon\Carbon::parse($changeRequest->end_time)->format('H:i') }}
-                            </td>
+                            <input type="text" name="start_time" class="detail-input" value="{{ old('start_time', \Carbon\Carbon::parse($changeRequest->start_time)->format('H:i')) }}">
+
+                            @error('start_time')
+                                <p class="error">{{ $message }} </p>
+                            @enderror
+
+                            ~
+                            <input type="text" name="end_time" class="detail-input" value="{{ old('end_time', \Carbon\Carbon::parse($changeRequest->end_time)->format('H:i')) }}">
+
+                            @error('end_time')
+                                <p class="error">{{ $message }} </p>
+                            @enderror
+                        </td>
                         </tr>
 
                         @foreach ($changeRequest->breakChanges as $index => $break)
-                            <tr>
-                                <th>休憩{{ $index + 1 }}</th>
-                                <td>
-                                    {{ \Carbon\Carbon::parse($break->start_time)->format('H:i') }}
-                                    ~
-                                    {{ \Carbon\Carbon::parse($break->end_time)->format('H:i') }}
-                                </td>
-                            </tr>
+                        <tr>
+                            <th>休憩{{ $index + 1 }}</th>
+                            <td>
+                                <input type="hidden" name="breaks[{{ $index }}][break_number]" value="{{ $index + 1 }}">
+
+                                <input type="time" name="breaks[{{ $index }}][start_time]" class="detail-input" value="{{ optional($break)->start_time ? \Carbon\Carbon::parse($break->start_time)->format('H:i') : '' }}">
+
+                                @error("breaks.$index.start_time")
+                                    <p class="error">{{ $message }}</p>
+                                @enderror
+                                ~
+                                <input type="time" name="breaks[{{ $index }}][end_time]" class="detail-input" value="{{ optional($break)->end_time ? \Carbon\Carbon::parse($break->end_time)->format('H:i') : '' }}">
+
+                                @error("breaks.$index.end_time")
+                                    <p class="error">{{ $message }}</p>
+                                @enderror
+                            </td>
+                        </tr>
                         @endforeach
 
                         <tr>
                             <th>備考</th>
-                            <td>{{ $changeRequest->note }}</td>
+                            <td>
+                            <textarea name="note" id="" cols="30" rows="10" class="detail-textarea">{{ old('note', $changeRequest->note ?? '') }}</textarea>
+
+                            @error('note')
+                                <p class="error">{{ $message }} </p>
+                            @enderror
+                        </td>
                         </tr>
                     </table>
                 </div>

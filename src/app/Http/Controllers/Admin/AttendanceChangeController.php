@@ -9,6 +9,7 @@ use App\Models\AttendanceChangeRequest as AttendanceChangeRequestModel;
 use App\Models\BreakTime;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\AttendanceChangeRequest;
+use App\Http\Requests\Admin\AttendanceUpdateRequest;
 
 class AttendanceChangeController extends Controller
 {
@@ -64,25 +65,31 @@ class AttendanceChangeController extends Controller
         return view('admin.attendance.change.show', compact('changeRequest'));
     }
 
-    public function approve($attendance_correct_request_id) {
+    public function approve(AttendanceUpdateRequest $request, $id) {
         $changeRequest = AttendanceChangeRequestModel::with([
             'attendance',
             'breakChanges'
-        ])->findOrFail($attendance_correct_request_id);
+        ])->findOrFail($id);
 
         $attendance = $changeRequest->attendance;
 
         $attendance->update([
-            'start_time' => $changeRequest->start_time,
-            'end_time' => $changeRequest->end_time,
+            'start_time' => $request->start_time,
+            'end_time' => $request->end_time,
             'status' => '承認済み',
         ]);
 
-        foreach ($changeRequest->breakChanges as $break) {
-            $attendance->breakTimes()->create([
-                'start_time' => $break->start_time,
-                'end_time' => $break->end_time,
-            ]);
+        if($request->breaks) {
+            foreach ($request->breaks as $index => $break) {
+                if (empty($break['start_time']) && empty($break['end_time'])) continue;
+                $attendance->breakTimes()->updateOrCreate(
+                    ['id' => $attendance->breakTimes[$index]->id ?? null],
+                    [
+                        'start_time' => $break['start_time'],
+                        'end_time' => $break['end_time'],
+                    ]
+                );
+            }
         }
 
         $changeRequest->update([
