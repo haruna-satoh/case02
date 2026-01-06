@@ -5,7 +5,8 @@
 }
 
 .attendance-detail__container {
-    width: 800px;
+    max-width: 800px;
+    width: 90%;
     margin: 0 auto;
 }
 
@@ -17,7 +18,8 @@
 }
 
 .attendance-detail__card {
-    width: 800px;
+    max-width: 800px;
+    width: 100%;
     margin: 0 auto;
     background: #fff;
     border-radius: 6px;
@@ -70,4 +72,41 @@
     font-size: 14px;
     border-radius: 4px;
     display: inline-block;
+}
+
+@media screen and (max-width: 850px) and (min-width: 768px) {
+    .attendance-detail {
+        padding: 20px;
+    }
+
+    .attendance-detail__title {
+        font-size: 16px;
+        margin-bottom: 16px;
+    }
+
+    .attendance-detail__container {
+        width: 95%;
+    }
+
+    .attendance-detail__card {
+        padding: 16px;
+    }
+
+    .attendance-detail__table th {
+        width: 120px;
+        font-size: 13px;
+    }
+
+    .attendance-detail__table td {
+        font-size: 13px;
+    }
+
+    .attendance-detail__button {
+        margin-right: 10%;
+    }
+
+    .btn-approve {
+        padding: 8px 24px;
+        font-size: 13px;
+    }
 }
