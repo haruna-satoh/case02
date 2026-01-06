@@ -49,3 +49,33 @@
     color: #000;
     font-weight: bold;
 }
+
+@media screen and (max-width: 850px) and (min-width: 768px) {
+    .staff-list {
+        padding: 12px;
+    }
+
+    .staff-list__title {
+        font-size: 16px;
+        margin-bottom: 12px;
+    }
+
+    .staff-list__table-wrap {
+        padding: 10px;
+    }
+
+    .staff-list__table-wrap table {
+        width: 100%;
+        font-size: 13px;
+    }
+
+    .staff-list__table-wrap th,
+    .staff-list__table-wrap td {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    .staff-list__table-wrap td:last-child {
+        text-align: center;
+    }
+}
