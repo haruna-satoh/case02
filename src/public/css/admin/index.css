@@ -87,3 +87,52 @@
     text-decoration: none;
     font-weight: bold;
 }
+
+@media screen and (max-width: 850px) and (min-width: 768px) {
+    .attendance {
+        padding: 12px;
+    }
+
+    .attendance__header {
+        margin-bottom: 16px;
+    }
+
+    .attendance__title {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .attendance__date-nav--cade {
+        padding: 10px 4px;
+    }
+
+    .attendance__date-nav {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .attendance__date-input input {
+        width: 100%;
+        font-size: 13px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        margin-top: 6px;
+        margin-bottom: 6px;
+    }
+
+    .attendance__button {
+        width: 100%;
+        font-size: 13px;
+        padding: 8px 0;
+    }
+
+    .attendance__table {
+        font-size: 13px;
+    }
+
+    .attendance__table th,
+    .attendance__table td {
+        padding: 8px;
+        font-size: 12px;
+    }
+}
