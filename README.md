@@ -9,11 +9,61 @@ coachtech勤怠管理アプリ
 
 ## 環境
 
+- php バージョン: 8.2
+- Laravel バージョン: 8.83
+- データベース: MySQL(Docker使用)
+
 ## セットアップ
 
+1. このリポジトリをクローン
+```bash
+git clone git@github.com:haruna-satoh/case02.git
+cd case02
+```
+
+2. Dockerを起動
+``` bash
+docker compose up -d --build
+```
+
+3. .envファイルを作成
+``` bash
+cp src/.env.example src/.env
+```
+
+4. Laravelアプリケーションのセットアップ
+php コンテナ内で実行
+```bash
+docker compose exec php bash
+composer install
+php artisan key:generate
+php artisan migrate --seed
+```
+
 ## ER図
+アプリ内で使用しているテーブル構成を示したER図です。
+
+![ER図](勤怠管理.drawio.svg)
 
 ## テスト手順
+MySQL コンテナ内で実行
+```bash
+docker compose exec mysql bash
+mysql -u root -p
+root
+CREATE DATABASE demo_test;
+exit;
+exit
+```
+※ パスワードは.env.testingに記載しているものを使用してください
+
+php コンテナ内で実行
+```bash
+docker compose exec php bash
+php artisan migrate --env=testing
+php artisan test
+```
+テスト結果が全ての項目でPASSであれば、基本動作が正常であると確認できます。
 
 ## 管理者アカウントについて
 
