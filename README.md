@@ -40,6 +40,13 @@ php artisan key:generate
 php artisan migrate --seed
 ```
 
+## メール認証について
+
+- 本アプリでは、一般ユーザー登録時にメール認証を行います。
+- 会員登録後に届く認証メールのリンクをクリックするとログインが可能になります。
+- 開発環境ではMailHogを使用してメールを確認できます。
+　- MailHog UI: [http://localhost:8025](http://localhost:8025)
+
 ## ER図
 アプリ内で使用しているテーブル構成を示したER図です。
 
