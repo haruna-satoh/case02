@@ -67,6 +67,10 @@ Route::post('/admin/logout', function () {
 })->name('admin.logout');
 
 Route::get('/email/verify', function() {
+        if (auth()->user()->hasVerifiedEmail()) {
+            return redirect('/attendance');
+        }
+
         return view('auth.verify');
     })->middleware('auth')->name('verification.notice');
 
