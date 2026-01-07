@@ -19,6 +19,18 @@ class AuthController extends Controller
         $credentials = $request->only('email','password');
 
         if (Auth::attempt($credentials)) {
+
+            $user = Auth::user();
+
+            if (is_null($user->email_verified_at)) {
+
+                Auth::logout();
+
+                return back()->withErrors([
+                    'login' => 'メール認証が完了していないためログインできません。',
+                ])->withInput();
+            }
+
             return redirect('/attendance');
         }
 
@@ -40,6 +52,8 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect('/attendance');
+        $user->sendEmailVerificationNotification();
+
+        return redirect()->route('verification.notice');
     }
 }
