@@ -29,7 +29,7 @@
                             <a href="/admin/staff/list">スタッフ一覧</a>
                         </li>
                         <li>
-                            <a href="/stamp_correction_request/list">申請一覧</a>
+                            <a href="/admin/stamp_correction_request/list">申請一覧</a>
                         </li>
                         <li>
                             <form action="/admin/logout" method="post">
@@ -39,7 +39,7 @@
                         </li>
                     </ul>
                 </nav>
-            @elseif(Auth::check())
+            @elseif(Auth::guard('web')->check())
                 <nav class="header__nav">
                     <ul class="header__list">
                         <li>
