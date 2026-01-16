@@ -7,9 +7,9 @@
 @section('content')
 <div class="attendance-list">
     <div class="attendance-list__header">
-        <h2 class="attendance-list__title">
+        <h1 class="attendance-list__title">
             {{ $user->name }}さんの勤怠
-        </h2>
+        </h1>
 
         <div class="month__nav--cade">
             <div class="month__nav">

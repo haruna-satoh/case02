@@ -8,7 +8,7 @@
     <div class="attendance__list">
         <div class="attendance__header">
             <div class="attendance__title">
-                <h2>勤怠一覧</h2>
+                <h1>勤怠一覧</h1>
             </div>
 
             <div class="month__nav--cade">

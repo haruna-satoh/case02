@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="staff-list">
-    <h2 class="staff-list__title">スタッフ一覧</h2>
+    <h1 class="staff-list__title">スタッフ一覧</h1>
 
     <div class="staff-list__table-wrap">
         <table>

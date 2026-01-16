@@ -7,9 +7,9 @@
 @section('content')
     <div class="attendance">
         <div class="attendance__header">
-            <h2 class="attendance__title">
+            <h1 class="attendance__title">
                 {{ $date }}の勤怠
-            </h2>
+            </h1>
             <div class="attendance__date-nav--cade">
                 <div class="attendance__date-nav">
                     <form action="{{ route('admin.attendance.index') }}" method="get" class="attendance__date-nav">

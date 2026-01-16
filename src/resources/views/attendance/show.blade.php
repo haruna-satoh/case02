@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="attendance-detail">
-        <h2 class="attendance-detail__title">勤怠詳細</h2>
+        <h1 class="attendance-detail__title">勤怠詳細</h1>
 
         <div class="attendance-detail__table">
             <form action="{{ route('attendance.change.store.user',$attendance->id) }}" method="post">

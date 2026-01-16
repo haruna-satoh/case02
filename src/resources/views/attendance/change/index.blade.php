@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="request-list">
-    <h2 class="request-list__title">申請一覧</h2>
+    <h1 class="request-list__title">申請一覧</h1>
 
     <div class="request-list__tab">
         <a href="{{ route('attendance.change.index') }}" class="attendance-detail__tab-button {{ $tab === 'pending' ? 'is-active' : '' }}">承認待ち</a>
