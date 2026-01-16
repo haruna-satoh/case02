@@ -53,23 +53,23 @@ class AttendanceChangeRequest extends FormRequest
                 }
             }
 
-            foreach ($breaks as $i => $break) {
-                    $b_start = $break['start_time'] ?? null;
-                    $b_end = $break['end_time'] ?? null;
+            foreach ($breaks as $breakIndex => $break) {
+                    $breakStartTime = $break['start_time'] ?? null;
+                    $breakEndTime = $break['end_time'] ?? null;
 
-                    if ($b_start) {
-                        if ($b_start < $start || $b_start > $end) {
-                            $validator->errors()->add("breaks.$i.start_time", '休憩時間が不適切な値です');
+                    if ($breakStartTime) {
+                        if ($breakStartTime < $startTime || $breakStartTime > $endTime) {
+                            $validator->errors()->add("breaks.$breakIndex.start_time", '休憩時間が不適切な値です');
                         }
                     }
 
-                    if ($b_end) {
-                        if ($b_end > $end ) {
-                            $validator->errors()->add("breaks.$i.end_time", '休憩時間もしくは退勤時間が不適切な値です');
+                    if ($breakEndTime) {
+                        if ($breakEndTime > $endTime ) {
+                            $validator->errors()->add("breaks.$breakIndex.end_time", '休憩時間もしくは退勤時間が不適切な値です');
                         }
 
-                        if ($b_start && $b_end < $b_start) {
-                            $validator->errors()->add("breaks.$i.end_time", '休憩時間が不適切な値です');
+                        if ($breakStartTime && $breakEndTime < $breakStartTime) {
+                            $validator->errors()->add("breaks.$breakIndex.end_time", '休憩時間が不適切な値です');
                         }
                     }
             }
